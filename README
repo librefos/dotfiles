@@ -1,0 +1,41 @@
+This repository contains personal dotfiles and configurations, managed using
+Git and GNU Stow.
+
+GNU Stow is a symlink farm manager which takes distinct packages of software
+and/or data located in a single directory tree, and makes them appear to be
+installed in the same place.
+
+--- Repository Structure ------------------------------------------------------
+
+The repository is structured to mimic the exact paths where the files will
+reside in the home directory, scoped within their respective packages.
+
+~/dotfiles/
+|-- README
+|-- bash/
+|   |-- .bash_profile   -> symlinked to ~/.bash_profile
+|   `-- .bashrc         -> symlinked to ~/.bashrc
+|-- git/
+|   `-- .gitconfig      -> symlinked to ~/.gitconfig
+|-- irssi/
+|   `-- .irssi/
+|       `-- config      -> symlinked to ~/.irssi/config
+|-- vim/
+|   `-- .vimrc          -> symlinked to ~/.vimrc
+`-- x11/
+    `-- .xinitrc        -> symlinked to ~/.xinitrc
+
+--- Deployment ----------------------------------------------------------------
+
+To deploy these dotfiles on a fresh Arch installation:
+
+1. Clone the repository into ~/dotfiles:
+   $ git clone https://git.sr.ht/~librefos/dotfiles.git ~/dotfiles
+   $ cd ~/dotfiles
+
+2. Use GNU Stow to symlink the configurations into your home directory:
+   $ stow bash git irssi vim x11
+
+If you need to make machine-specific adjustments to these configs, prefer
+putting them in un-tracked .local files when supported, or manage variations
+directly via Git branches.
