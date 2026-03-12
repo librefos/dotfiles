@@ -1,3 +1,55 @@
+Este repositório contém dotfiles e configurações pessoais, gerenciados
+usando Git e GNU Stow.  O GNU Stow é um gerenciador de links simbólicos
+que agrupa pacotes distintos de software e/ou dados localizados em uma
+única árvore de diretórios e faz com que pareçam estar instalados no
+mesmo lugar.
+
+--- Estrutura do Repositório -------------------------------------------
+
+O repositório é estruturado para imitar os caminhos exatos onde os
+arquivos residirão no diretório home, agrupados dentro de seus
+respectivos pacotes.
+
+~/dotfiles/
+|-- README
+|-- deploy.sh
+|-- bash/
+|   |-- .bash_profile   -> linkado para ~/.bash_profile
+|   `-- .bashrc         -> linkado para ~/.bashrc
+|-- git/
+|   `-- .gitconfig      -> linkado para ~/.gitconfig
+|-- irssi/
+|   `-- .irssi/
+|       `-- config      -> linkado para ~/.irssi/config
+|-- vim/
+|   `-- .vimrc          -> linkado para ~/.vimrc
+`-- x11/
+    `-- .xinitrc        -> linkado para ~/.xinitrc
+
+--- Implantação --------------------------------------------------------
+
+Para implantar estes dotfiles em uma instalação limpa do Arch Linux:
+
+1. Clone o repositório em ~/dotfiles:
+   $ git clone https://git.sr.ht/~librefos/dotfiles.git ~/dotfiles
+   $ cd ~/dotfiles
+
+2. Execute o script interativo de implantação:
+   $ ./deploy.sh
+
+O script detectará automaticamente os pacotes disponíveis e solicitará
+que você selecione quais implantar.  Se ele detectar arquivos regulares
+existentes nos locais de destino (como um ~/.bashrc padrão), ele os
+renomeará com segurança com uma extensão .bak antes de criar os links
+simbólicos.
+
+Se você precisar fazer ajustes específicos da máquina nestas
+configurações, prefira colocá-los em arquivos .local não rastreados pelo
+Git quando suportado, ou gerencie as variações diretamente via branches.
+
+
+--- English Version ----------------------------------------------------
+
 This repository contains personal dotfiles and configurations, managed
 using Git and GNU Stow.  GNU Stow is a symlink farm manager which takes
 distinct packages of software and/or data located in a single directory
