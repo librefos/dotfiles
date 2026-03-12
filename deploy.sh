@@ -27,26 +27,30 @@ info()  { printf "${GREEN}[INFO]${NC} %b\n"  "$1" >&2; }
 warn()  { printf "${YELLOW}[WARN]${NC} %b\n" "$1" >&2; }
 error() { printf "${RED}[ERROR]${NC} %b\n"   "$1" >&2; exit 1; }
 
-# Parse a comma-separated string of 1-based indices against a reference.
-# Usage: parse_selection <choices_string> <array_name>
-# Prints one selected element per line.  Caller collects into an array
-# with: mapfile -t selected < <(parse_selection "$choices" dotfiles)
+# Parse a comma-separated string of names against a reference array.
 parse_selection()
 {
-  local choices="$1"
-  local -n _arr="$2"
-  local c
+  local choices_string="$1"
+  local -n reference_array="$2"
+  local choice_token
 
-  IFS=',' read -ra tokens <<< "$choices"
-  for c in "${tokens[@]}"; do
-    c="${c// /}"
-    # Reject anything that is not a positive integer.
-    if [[ "$c" =~ ^[0-9]+$ ]] &&
-       (( c > 0 && c <= ${#_arr[@]} )); then
-      # Input is 1-based, array is 0-based.
-      printf '%s\n' "${_arr[$((c-1))]}"
+  IFS=',' read -ra tokens <<< "$choices_string"
+  for choice_token in "${tokens[@]}"; do
+    choice_token="${choice_token// /}"
+
+    local is_valid_choice=false
+    local valid_item
+    for valid_item in "${reference_array[@]}"; do
+      if [[ "$choice_token" == "$valid_item" ]]; then
+        is_valid_choice=true
+        break
+      fi
+    done
+
+    if $is_valid_choice; then
+      printf '%s\n' "$choice_token"
     else
-      warn "Invalid selection ignored: $c"
+      warn "Invalid selection ignored: $choice_token"
     fi
   done
 }
@@ -55,11 +59,9 @@ parse_selection()
 
 command -v stow &>/dev/null || error "'stow' is not installed."
 
-# Ensure Stow uses the correct source repository.
 readonly REPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 readonly TARGET_DIR="$HOME"
 
-# nullglob: ensures 'all_dirs' is empty if no directories exist.
 shopt -s nullglob
 readonly all_dirs=("$REPO_DIR"/*/)
 dotfiles=()
@@ -70,27 +72,40 @@ shopt -u nullglob
 
 [[ ${#dotfiles[@]} -eq 0 ]] && error 'No stow packages found.'
 
-printf 'Available dotfile:\n'
-for i in "${!dotfiles[@]}"; do
-  printf '[%d] %s\n' "$((i+1))" "${dotfiles[i]}"
-done
+# Subshell is used to isolate IFS changes when generating the list.
+readonly comma_separated_list="$(IFS=','; printf '%s' "${dotfiles[*]}")"
 
-printf 'Enter numbers to stow (comma-separated) ' >/dev/tty
-printf 'or press Enter to skip all: ' >/dev/tty
-read -r choices </dev/tty
+if [[ "${1:-}" == "--list" ]]; then
+  printf '%s\n' "$comma_separated_list"
+  exit 0
+fi
+
+if [[ $# -eq 1 ]]; then
+  choices="$1"
+  info "Using provided selection: $choices"
+else
+  printf 'Available dotfile packages: %s\n' "$comma_separated_list"
+  printf 'Enter names to stow (comma-separated) ' >/dev/tty
+  printf 'or press Enter to skip all: ' >/dev/tty
+  read -r choices </dev/tty
+fi
+
 mapfile -t selected_dotfiles < <(parse_selection "$choices" dotfiles)
+if [[ ${#selected_dotfiles[@]} -eq 0 ]]; then
+  info 'No packages selected. Exiting.'
+  exit 0
+fi
+
 info "Selected for deployment: ${selected_dotfiles[*]}"
 
 backup_conflict()
 {
   local file="$1"
-  # -e ensures it exists; -L ensures we catch broken symlinks too.
   [[ -e "$file" || -L "$file" ]] || return 0
   warn "Backing up: $file -> ${file}.bak"
   mv "$file" "${file}.bak"
 }
 
-# \K discards the error prefix so only the relative filepath remains.
 stow_conflict_pat='(?:existing target is neither a link nor a directory: '
 stow_conflict_pat+='|existing target is not owned by stow: )\K.+'
 stow_flags=(--no-folding --dir="$REPO_DIR" --target="$TARGET_DIR")
@@ -102,7 +117,6 @@ for pkg in "${selected_dotfiles[@]}"; do
   }
 
   info "Checking for conflicts in $pkg..."
-  # Simulate first to detect files or foreign symlinks that block us.
   while IFS= read -r conflict; do
     backup_conflict "$TARGET_DIR/$conflict"
   done < <(

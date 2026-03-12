@@ -38,15 +38,18 @@ Para implantar estes dotfiles em uma instalação limpa do Arch Linux:
    $ ./deploy.sh
 
 O script detectará automaticamente os pacotes disponíveis e solicitará
-que você selecione quais implantar.  Se ele detectar arquivos regulares
-existentes nos locais de destino (como um ~/.bashrc padrão), ele os
-renomeará com segurança com uma extensão .bak antes de criar os links
-simbólicos.
+que você informe os nomes dos pacotes que deseja implantar, separados
+por vírgula.  Você também pode automatizar a execução passando os nomes
+diretamente como argumento (ex: `./deploy.sh bash,git,vim`).  Para
+obter uma lista dos pacotes disponíveis para uso em automação, passe o
+parâmetro `--list`.
 
-Se você precisar fazer ajustes específicos da máquina nestas
-configurações, prefira colocá-los em arquivos .local não rastreados pelo
-Git quando suportado, ou gerencie as variações diretamente via branches.
-
+Se o script detectar arquivos regulares existentes nos locais de
+destino (como um ~/.bashrc padrão), ele os renomeará com segurança com
+uma extensão .bak antes de criar os links simbólicos.  Se você precisar
+fazer ajustes específicos da máquina nestas configurações, prefira
+colocá-los em arquivos .local não rastreados pelo Git quando suportado,
+ou gerencie as variações diretamente via branches.
 
 --- English Version ----------------------------------------------------
 
@@ -89,10 +92,13 @@ To deploy these dotfiles on a fresh Arch Linux installation:
    $ ./deploy.sh
 
 The script will automatically detect available packages and prompt you
-to select which ones to deploy.  If it detects existing regular files
-at the target locations (such as a default ~/.bashrc), it will safely
-rename them with a .bak extension before creating the symlinks.
+to provide the names of the packages to deploy, separated by commas.
+You can also automate execution by passing the names directly as an
+argument (e.g., `./deploy.sh bash,git,vim`).  To get a parseable list
+of available packages for use in scripts, pass the `--list` flag.
 
-If you need to make machine-specific adjustments to these configs,
-prefer putting them in un-tracked .local files when supported, or
-manage variations directly via Git branches.
+If it detects existing regular files at the target locations (such as a
+default ~/.bashrc), it will safely rename them with a .bak extension
+before creating the symlinks.  If you need to make machine-specific
+adjustments to these configs, prefer putting them in un-tracked .local
+files when supported, or manage variations directly via Git branches.
