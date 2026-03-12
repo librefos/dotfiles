@@ -106,8 +106,9 @@ backup_conflict()
   mv "$file" "${file}.bak"
 }
 
-stow_conflict_pat='(?:existing target is neither a link nor a directory: '
-stow_conflict_pat+='|existing target is not owned by stow: )\K.+'
+# Discard the prefix and captures all non-whitespace characters
+# representing the target file path before the word 'since'.
+stow_conflict_pat='over existing target \K\S+(?= since)'
 stow_flags=(--no-folding --dir="$REPO_DIR" --target="$TARGET_DIR")
 
 for pkg in "${selected_dotfiles[@]}"; do
