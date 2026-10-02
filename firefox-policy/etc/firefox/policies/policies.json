@@ -1,0 +1,275 @@
+{
+  "policies": {
+    "AIControls": {
+      "Default": {
+        "Value": "blocked",
+        "Locked": true
+      },
+      "Translations": {
+        "Value": "blocked",
+        "Locked": true
+      },
+      "PDFAltText": {
+        "Value": "blocked",
+        "Locked": true
+      },
+      "SmartTabGroups": {
+        "Value": "blocked",
+        "Locked": true
+      },
+      "LinkPreviewKeyPoints": {
+        "Value": "blocked",
+        "Locked": true
+      },
+      "SidebarChatbot": {
+        "Value": "blocked",
+        "Locked": true
+      },
+      "SmartWindow": {
+        "Value": "blocked",
+        "Locked": true
+      }
+    },
+    "AutofillAddressEnabled": false,
+    "AutofillCreditCardEnabled": false,
+    "Cookies": {
+      "Allow": [
+        "https://github.com",
+        "https://google.com"
+      ],
+      "ExpireAtSessionEnd": true,
+      "Behavior": "reject-tracker-and-partition-foreign",
+      "BehaviorPrivateBrowsing": "reject-tracker-and-partition-foreign"
+    },
+    "DNSOverHTTPS": {
+      "Enabled": true,
+      "ProviderURL": "https://mozilla.cloudflare-dns.com/dns-query",
+      "Fallback": false
+    },
+    "DefaultDownloadDirectory": "/tmp",
+    "DownloadDirectory": "/tmp",
+    "EnableTrackingProtection": {
+      "Value": true,
+      "Category": "strict",
+      "Cryptomining": true,
+      "Fingerprinting": true,
+      "EmailTracking": true
+    },
+    "EncryptedMediaExtensions": {
+      "Enabled": true
+    },
+    "Homepage": {
+      "URL": "about:blank",
+      "StartPage": "none"
+    },
+    "HttpsOnlyMode": "enabled",
+    "NewTabPage": false,
+    "OfferToSaveLogins": false,
+    "OfferToSaveLoginsDefault": false,
+    "Permissions": {
+      "Camera": {
+        "BlockNewRequests": true,
+        "Locked": false
+      },
+      "Location": {
+        "BlockNewRequests": true,
+        "Locked": false
+      },
+      "Microphone": {
+        "BlockNewRequests": true,
+        "Locked": false
+      },
+      "Notifications": {
+        "BlockNewRequests": true,
+        "Locked": false
+      },
+      "VirtualReality": {
+        "BlockNewRequests": true,
+        "Locked": false
+      }
+    },
+    "Preferences": {
+      "browser.ctrlTab.sortByRecentlyUsed": {
+        "Value": false,
+        "Status": "default"
+      },
+      "browser.download.deletePrivate": {
+        "Value": true,
+        "Status": "default"
+      },
+      "browser.download.enableDeletePrivate": {
+        "Value": true,
+        "Status": "default"
+      },
+      "browser.ml.linkPreview.enabled": {
+        "Value": false,
+        "Status": "default"
+      },
+      "browser.tabs.groups.smart.userEnabled": {
+        "Value": false,
+        "Status": "default"
+      },
+      "browser.toolbars.bookmarks.visibility": {
+        "Value": "never",
+        "Status": "default"
+      },
+      "browser.uiCustomization.state": {
+        "Value": "{\"placements\":{\"nav-bar\":[\"sidebar-button\",\"back-button\",\"forward-button\",\"stop-reload-button\",\"spring\",\"vertical-spacer\",\"urlbar-container\",\"spring\",\"downloads-button\",\"open-file-button\",\"profiler-button\",\"panic-button\",\"library-button\",\"preferences-button\",\"developer-button\"]},\"seen\":[\"developer-button\",\"library-button\",\"open-file-button\",\"panic-button\",\"preferences-button\",\"profiler-button\"],\"dirtyAreaCache\":[\"nav-bar\"],\"currentVersion\":24,\"newElementCount\":0}",
+        "Status": "default"
+      },
+      "browser.urlbar.showSearchTerms.enabled": {
+        "Value": false,
+        "Status": "default"
+      },
+      "browser.urlbar.showSearchTerms.featureGate": {
+        "Value": false,
+        "Status": "default"
+      },
+      "browser.urlbar.suggest.quickactions": {
+        "Value": false,
+        "Status": "default"
+      },
+      "browser.urlbar.suggest.wikipedia": {
+        "Value": false,
+        "Status": "default"
+      },
+      "browser.urlbar.wikipedia.featureGate": {
+        "Value": false,
+        "Status": "default"
+      },
+      "devtools.cache.disabled": {
+        "Value": true,
+        "Status": "default"
+      },
+      "devtools.chrome.enabled": {
+        "Value": true,
+        "Status": "default"
+      },
+      "devtools.command-button-frames.enabled": {
+        "Value": true,
+        "Status": "default"
+      },
+      "devtools.command-button-measure.enabled": {
+        "Value": true,
+        "Status": "default"
+      },
+      "devtools.command-button-noautohide.enabled": {
+        "Value": true,
+        "Status": "default"
+      },
+      "devtools.command-button-paintflashing.enabled": {
+        "Value": true,
+        "Status": "default"
+      },
+      "devtools.command-button-responsive.enabled": {
+        "Value": true,
+        "Status": "default"
+      },
+      "devtools.command-button-rulers.enabled": {
+        "Value": true,
+        "Status": "default"
+      },
+      "devtools.command-button-screenshot.enabled": {
+        "Value": true,
+        "Status": "default"
+      },
+      "devtools.debugger.prompt-connection": {
+        "Value": true,
+        "Status": "default"
+      },
+      "devtools.debugger.remote-enabled": {
+        "Value": true,
+        "Status": "default"
+      },
+      "devtools.inspector.showUserAgentStyles": {
+        "Value": true,
+        "Status": "default"
+      },
+      "devtools.netmonitor.persistlog": {
+        "Value": true,
+        "Status": "default"
+      },
+      "devtools.performance.popup.feature-flag": {
+        "Value": true,
+        "Status": "default"
+      },
+      "devtools.theme": {
+        "Value": "dark",
+        "Status": "default"
+      },
+      "devtools.toolbox.host": {
+        "Value": "right",
+        "Status": "default"
+      },
+      "devtools.webconsole.persistlog": {
+        "Value": true,
+        "Status": "default"
+      },
+      "devtools.webconsole.timestampMessages": {
+        "Value": true,
+        "Status": "default"
+      },
+      "intl.accept_languages": {
+        "Value": "en",
+        "Status": "default"
+      },
+      "intl.locale.requested": {
+        "Value": "en",
+        "Status": "default"
+      },
+      "layout.spellcheckDefault": {
+        "Value": 0,
+        "Status": "default"
+      },
+      "network.lna.blocking": {
+        "Value": true,
+        "Status": "default"
+      },
+      "permissions.default.local-network": {
+        "Value": 2,
+        "Status": "default"
+      },
+      "permissions.default.loopback-network": {
+        "Value": 2,
+        "Status": "default"
+      },
+      "places.history.enabled": {
+        "Value": false,
+        "Status": "default"
+      },
+      "privacy.globalprivacycontrol.enabled": {
+        "Value": true,
+        "Status": "default"
+      },
+      "privacy.panicButton.enabled": {
+        "Value": true,
+        "Status": "default"
+      }
+    },
+    "PromptForDownloadLocation": true,
+    "RequestedLocales": [
+      "en"
+    ],
+    "SearchEngines": {
+      "Add": [
+        {
+          "Name": "Lite DuckDuckGo",
+          "Alias": "@lddg",
+          "URLTemplate": "https://lite.duckduckgo.com/lite/search?q={searchTerms}",
+          "Method": "GET"
+        }
+      ],
+      "Default": "Lite DuckDuckGo",
+      "DefaultPrivate": "Lite DuckDuckGo",
+      "PreventInstalls": true,
+      "Remove": [
+        "Google",
+        "DuckDuckGo",
+        "Bing",
+        "Perplexity",
+        "Wikipedia (en)"
+      ]
+    },
+    "SearchSuggestEnabled": false
+  }
+}

@@ -1,0 +1,118 @@
+This repository contains personal dotfiles and configurations, managed
+using Git and GNU Stow.
+
+GNU Stow is a symlink farm manager which takes distinct packages of
+software and/or data located in a single directory tree and makes them
+appear to be installed in the same place.
+
+--- Repository Structure -----------------------------------------------
+
+The repository is structured to mirror the exact paths where the files
+will reside in the home directory, grouped within their respective
+packages.
+
+~/dotfiles/
+|-- README
+|-- deploy.sh
+|-- bash/
+|   |-- .bash_aliases -> symlinked to ~/.bash_aliases
+|   |-- .bash_profile -> symlinked to ~/.bash_profile
+|   |-- .bashrc -> symlinked to ~/.bashrc
+|   `-- .local/bin/
+|       `-- ssh-sendmail -> symlinked to ~/.local/bin/ssh-sendmail
+|-- firefox/
+|   `-- .mozilla/
+|       `-- firefox/
+|           |-- profiles.ini -> symlinked to
+|           |   ~/.mozilla/firefox/profiles.ini
+|           |-- main.profile/
+|               |-- user.js -> symlinked to
+|               |   ~/.mozilla/firefox/main.profile/user.js
+|               `-- chrome/
+|                   `-- userChrome.css -> symlinked to
+|                       ~/.mozilla/firefox/main.profile/
+|                       chrome/userChrome.css
+|           `-- developer-edition.profile/
+|               |-- user.js -> symlinked to
+|               |   ~/.mozilla/firefox/developer-edition.profile/user.js
+|               `-- chrome/
+|                   `-- userChrome.css -> symlinked to
+|                       ~/.mozilla/firefox/developer-edition.profile/
+|                       chrome/userChrome.css
+|-- firefox-policy/  # internal support for the firefox package
+|   `-- etc/
+|       `-- firefox/
+|           `-- policies/
+|               `-- policies.json -> installed by ./deploy.sh firefox to
+|                   /etc/firefox/policies/policies.json
+|-- git/
+|   `-- .gitconfig -> symlinked to ~/.gitconfig
+|-- pipewire/
+|   `-- .config/
+|       `-- pipewire/
+|           `-- pipewire.conf.d/
+|               `-- 50-hardcode-alsa.conf -> symlinked to
+|                   ~/.config/pipewire/pipewire.conf.d/
+|                   50-hardcode-alsa.conf
+|-- vim/
+|   `-- .vim/
+|       `-- vimrc -> symlinked to ~/.vim/vimrc
+`-- x11/
+    `-- .xinitrc -> symlinked to ~/.xinitrc
+
+--- Deployment ---------------------------------------------------------
+
+To deploy these dotfiles on a fresh Arch Linux installation:
+
+1. Clone the repository into ~/dotfiles:
+   $ git clone https://github.com/librefos/dotfiles.git ~/dotfiles
+   $ cd ~/dotfiles
+
+2. Execute the interactive deployment script:
+   $ ./deploy.sh
+
+The script will automatically detect available packages and prompt you
+to provide the names of the packages to deploy, comma-separated.  You
+can also automate execution by passing the names directly as an
+argument.
+
+The `firefox` package also installs Firefox enterprise policies into
+`/etc/firefox/policies` with `sudo`, because Firefox does not read this
+policy type from the home directory.  This keeps browser setup as one
+command:
+
+   $ ./deploy.sh firefox
+
+The `developer-edition.profile` profile is the main daily profile for
+Firefox Developer Edition.  It sets a compact interface, dark theme,
+blank startup/new-tab pages, downloads in `/tmp`, the XDG portal file
+picker, Lite DuckDuckGo search, reduced Firefox Suggest surfaces, and
+developer tools with persistent logs, measurement, screenshot,
+responsive-design buttons, and a right-docked toolbox.
+
+Tabs are a horizontal strip along the bottom of the window, flush to its
+edges, with the new-tab button at the right end, and the sidebar's
+launcher column of tool icons is hidden; the sidebar button in the nav
+bar still opens it.  Firefox has no setting for the tab position, so
+`userChrome.css` rests on how the browser builds its window and is the
+one thing here to check after an update.  Both profiles carry the same
+stylesheet.
+
+The policies in `/etc/firefox/policies/policies.json` complement the
+profile with global defaults.  Camera, microphone, location,
+notifications, virtual reality, and local-network access start blocked by
+default, but site permissions are not locked; adjust them inside Firefox
+when you need calls or a specific site exception.  AI controls remain
+blocked by policy.
+
+To get a parseable list of available packages for use in scripts, pass
+the `--list` flag.
+
+If it detects existing regular files at the target locations (such as
+a default ~/.bashrc), it will safely rename them with a .bak extension
+before creating the symlinks.
+
+If you need to make machine-specific adjustments to these configs,
+prefer putting them in separate local files (e.g., ~/.bash_local) and
+sourcing them from the main configuration, rather than modifying the
+tracked files in this repository.

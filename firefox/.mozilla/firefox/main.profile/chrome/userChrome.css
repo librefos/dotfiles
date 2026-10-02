@@ -1,0 +1,108 @@
+:root {
+    --toolbarbutton-border-radius: 0px !important;
+    --urlbarView-item-block-padding: 4px !important;
+}
+#alltabs-button,
+#firefox-view-button,
+#fxa-toolbar-menu-button,
+#home-button,
+#pocket-button,
+#reader-mode-button,
+#star-button-box,
+#unified-extensions-button,
+.titlebar-buttonbox-container {
+    display: none !important;
+}
+#urlbar-background {
+    border-radius: 0px !important;
+    box-shadow: none !important;
+}
+menupopup,
+panel {
+    --panel-border-radius: 0px !important;
+    --panel-padding: 2px !important;
+}
+
+/* Tabs along the bottom, which Firefox has no setting for.  #TabsToolbar
+ * sits in <toolbox id="navigator-toolbox">, a flex child of body next to
+ * #browser; display: contents drops the toolbox's own box so its
+ * toolbars become flex children of body and order can put the strip
+ * after the content area.  Costs of that: the toolbox's border moves to
+ * #nav-bar, and #TabsToolbar carries flex="1" from the markup, which in
+ * body's column means it grows.  flex: 0 0 auto does not beat that
+ * attribute from a user sheet -- left at that the strip and #browser
+ * each take half the window -- so the height is pinned instead, min and
+ * max to the same 32px.  If an update nests #TabsToolbar again the
+ * strip goes back to the top, which is the signal to re-read
+ * browser.xhtml.  (Firefox 156)
+ */
+#navigator-toolbox {
+    display: contents !important;
+}
+/* The strip is .browser-titlebar, and browser-shared.css paints the
+ * toolbar colour on .browser-toolbar:not(.browser-titlebar), so left
+ * alone it falls through to the darker body colour.  At the top of the
+ * window that reads as the titlebar; at the bottom it is just a black
+ * band, so it takes the same colour as #nav-bar.
+ */
+#TabsToolbar {
+    order: 1 !important;
+    min-height: 32px !important;
+    max-height: 32px !important;
+    background-color: var(--toolbar-background-color) !important;
+    color: var(--toolbar-text-color) !important;
+}
+#nav-bar {
+    min-height: 36px !important;
+    border-bottom: 1px solid #2a2a2a !important;
+}
+
+/* --tab-margin-block, not --tab-block-margin, which is nothing and fails
+ * silently.  .titlebar-spacer reserves 40px for the window buttons
+ * hidden above.
+ */
+:root {
+    --tab-margin-block: 0px !important;
+    --tab-inner-inline-margin: 0px !important;
+}
+#TabsToolbar,
+#TabsToolbar .toolbar-items,
+#TabsToolbar-customization-target,
+#tabbrowser-tabs,
+#tabbrowser-arrowscrollbox {
+    padding-inline: 0 !important;
+    padding-block: 0 !important;
+    margin-inline: 0 !important;
+    margin-block: 0 !important;
+}
+.titlebar-spacer {
+    display: none !important;
+}
+.tabbrowser-tab {
+    margin-inline: 0 !important;
+}
+.tab-background {
+    border-radius: 0 !important;
+    margin-inline: 0 !important;
+    margin-block: 0 !important;
+}
+
+/* The space after the last tab is the <toolbarspring> the markup puts
+ * there, not a margin; dropping it and letting the tabs take the width
+ * is what lets the new-tab button reach the right edge.  Firefox shows
+ * the button inside the tab scrollbox, which is only as wide as its
+ * tabs, so that one is hidden and the standalone one forced back on.
+ */
+#tabs-newtab-button,
+#vertical-tabs-newtab-button,
+#TabsToolbar toolbarspring {
+    display: none !important;
+}
+#tabbrowser-tabs,
+#tabbrowser-arrowscrollbox {
+    flex: 1 1 auto !important;
+}
+#TabsToolbar #new-tab-button {
+    display: flex !important;
+    margin-inline-start: auto !important;
+}
