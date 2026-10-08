@@ -175,8 +175,8 @@ for pkg in "${selected_dotfiles[@]}"; do
   case "$pkg" in
     firefox)
       info -- "Creating Firefox base directories..."
-      mkdir --parents "${TARGET_DIR}/.mozilla/firefox/main.profile/chrome"
-      mkdir --parents "${TARGET_DIR}/.mozilla/firefox/developer-edition.profile/chrome"
+      mkdir --parents "${TARGET_DIR}/.mozilla/firefox/main.profile"
+      mkdir --parents "${TARGET_DIR}/.mozilla/firefox/developer-edition.profile"
       info -- "Installing Firefox system policies..."
       command -v sudo > /dev/null 2>&1 || info -e "'sudo' is not installed."
       sudo install -Dm0644 \

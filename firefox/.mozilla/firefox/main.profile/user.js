@@ -14,15 +14,10 @@
    You should have received a copy of the GNU General Public License
    along with this program.  If not, see <https://www.gnu.org/licenses/>. */
 
-// --- Enable Custom CSS ---
-user_pref("toolkit.legacyUserProfileCustomizations.stylesheets", true);
-
 // --- UI Friction Reduction ---
 user_pref("browser.aboutConfig.showWarning", false);
 
 // --- Tabs & Sidebar ---
-// The horizontal strip; chrome/userChrome.css moves it to the bottom
-// and is written against this being false.
 user_pref("sidebar.verticalTabs", false);
 // hide-sidebar, so the launcher strip of tool icons is not down the
 // side of every window; the sidebar button in the nav bar still opens
@@ -42,3 +37,5 @@ user_pref("ui.systemUsesDarkTheme", 1);
 user_pref("browser.in-content.dark-mode", true);
 user_pref("browser.theme.content-theme", 0);
 user_pref("browser.theme.toolbar-theme", 0);
+user_pref("extensions.activeThemeID", "default-theme@mozilla.org");
+user_pref("browser.theme.native-theme", true);

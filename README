@@ -26,19 +26,11 @@ packages.
 |           |-- profiles.ini -> symlinked to
 |           |   ~/.mozilla/firefox/profiles.ini
 |           |-- main.profile/
-|               |-- user.js -> symlinked to
-|               |   ~/.mozilla/firefox/main.profile/user.js
-|               `-- chrome/
-|                   `-- userChrome.css -> symlinked to
-|                       ~/.mozilla/firefox/main.profile/
-|                       chrome/userChrome.css
+|               `-- user.js -> symlinked to
+|                   ~/.mozilla/firefox/main.profile/user.js
 |           `-- developer-edition.profile/
-|               |-- user.js -> symlinked to
-|               |   ~/.mozilla/firefox/developer-edition.profile/user.js
-|               `-- chrome/
-|                   `-- userChrome.css -> symlinked to
-|                       ~/.mozilla/firefox/developer-edition.profile/
-|                       chrome/userChrome.css
+|               `-- user.js -> symlinked to
+|                   ~/.mozilla/firefox/developer-edition.profile/user.js
 |-- firefox-policy/  # internal support for the firefox package
 |   `-- etc/
 |       `-- firefox/
@@ -90,20 +82,22 @@ picker, Lite DuckDuckGo search, reduced Firefox Suggest surfaces, and
 developer tools with persistent logs, measurement, screenshot,
 responsive-design buttons, and a right-docked toolbox.
 
-Tabs are a horizontal strip along the bottom of the window, flush to its
-edges, with the new-tab button at the right end, and the sidebar's
-launcher column of tool icons is hidden; the sidebar button in the nav
-bar still opens it.  Firefox has no setting for the tab position, so
-`userChrome.css` rests on how the browser builds its window and is the
-one thing here to check after an update.  Both profiles carry the same
-stylesheet.
+Both profiles use the Default theme with the Dark appearance and "Use
+Linux system theme" checked, so the toolbars take the GTK theme's dark
+colours; there is no `userChrome.css`.  Developer Edition's own default
+is the Dark theme, which `user.js` only overrides in a new profile, so an
+existing one is switched once by hand in about:addons > Themes.  The
+sidebar's launcher column of tool icons is hidden; the sidebar button in
+the nav bar still opens it.
 
 The policies in `/etc/firefox/policies/policies.json` complement the
 profile with global defaults.  Camera, microphone, location,
 notifications, virtual reality, and local-network access start blocked by
 default, but site permissions are not locked; adjust them inside Firefox
 when you need calls or a specific site exception.  AI controls remain
-blocked by policy.
+blocked by policy.  uBlock Origin is installed from addons.mozilla.org
+on the next start of Firefox, also in private windows, and keeps
+updating from there; it can be disabled but not removed.
 
 To get a parseable list of available packages for use in scripts, pass
 the `--list` flag.

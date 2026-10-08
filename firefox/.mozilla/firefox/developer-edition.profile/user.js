@@ -15,13 +15,13 @@
    along with this program.  If not, see <https://www.gnu.org/licenses/>. */
 
 // --- Profile & UI ---
-user_pref("toolkit.legacyUserProfileCustomizations.stylesheets", true);
 user_pref("browser.aboutConfig.showWarning", false);
 user_pref("ui.systemUsesDarkTheme", 1);
 user_pref("browser.in-content.dark-mode", true);
 user_pref("browser.theme.content-theme", 0);
 user_pref("browser.theme.toolbar-theme", 0);
-user_pref("extensions.activeThemeID", "firefox-compact-dark@mozilla.org");
+user_pref("extensions.activeThemeID", "default-theme@mozilla.org");
+user_pref("browser.theme.native-theme", true);
 user_pref("layout.css.prefers-color-scheme.content-override", 0);
 user_pref("browser.uidensity", 1);
 user_pref("browser.uiCustomization.state", "{\"placements\":{\"nav-bar\":[\"sidebar-button\",\"back-button\",\"forward-button\",\"stop-reload-button\",\"spring\",\"vertical-spacer\",\"urlbar-container\",\"spring\",\"downloads-button\",\"open-file-button\",\"profiler-button\",\"panic-button\",\"library-button\",\"preferences-button\",\"developer-button\"]},\"seen\":[\"developer-button\",\"library-button\",\"open-file-button\",\"panic-button\",\"preferences-button\",\"profiler-button\"],\"dirtyAreaCache\":[\"nav-bar\"],\"currentVersion\":24,\"newElementCount\":0}");
@@ -139,8 +139,6 @@ user_pref("media.ffmpeg.vaapi.enabled", true);
 user_pref("media.eme.enabled", true);
 
 // --- Tabs & Browsing ---
-// The horizontal strip; chrome/userChrome.css moves it to the bottom
-// and is written against this being false.
 user_pref("sidebar.verticalTabs", false);
 // hide-sidebar, so the launcher strip of tool icons is not down the
 // side of every window; the sidebar button in the nav bar still opens
