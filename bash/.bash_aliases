@@ -16,14 +16,12 @@
 
 alias ls='ls --classify --color=never'
 alias grep='grep --color=auto'
-alias runlabel='podman container runlabel run'
 
 ssha()
 {
   local key="${1:-$HOME/.ssh/id_ed25519}"
   [ -f "$key" ] || { printf 'ssha: key not found: %s\n' "$key" >&2; return 1; }
 
-  # ssh-add -l exits 2 when it cannot reach any agent; only then start one.
   ssh-add -l >/dev/null 2>&1
   if [ "$?" -eq 2 ]; then
     eval "$(ssh-agent -s)"
