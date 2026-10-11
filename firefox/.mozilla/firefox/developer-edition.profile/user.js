@@ -134,7 +134,6 @@ user_pref("browser.download.deletePrivate", true);
 user_pref("browser.download.deletePrivate.chosen", true);
 
 // --- Linux Integration ---
-user_pref("widget.use-xdg-desktop-portal.file-picker", 1);
 user_pref("media.ffmpeg.vaapi.enabled", true);
 user_pref("media.eme.enabled", true);
 

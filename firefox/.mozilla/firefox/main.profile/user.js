@@ -26,9 +26,6 @@ user_pref("sidebar.verticalTabs", false);
 user_pref("sidebar.visibility", "hide-sidebar");
 user_pref("sidebar.expandOnHover", false);
 
-// --- Linux Integration ---
-user_pref("widget.use-xdg-desktop-portal.file-picker", 1);
-
 // --- Hardware Acceleration (Vega 8 / VA-API) ---
 user_pref("media.ffmpeg.vaapi.enabled", true);
 
