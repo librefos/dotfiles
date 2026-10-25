@@ -17,14 +17,59 @@
 alias ls='ls --classify --color=never'
 alias grep='grep --color=auto'
 
-ssha()
+# Worktree + tmux window: agent beside vim.
+# usage: wt <branch> [agent-cmd]
+wt()
 {
-  local key="${1:-$HOME/.ssh/id_ed25519}"
-  [ -f "$key" ] || { printf 'ssha: key not found: %s\n' "$key" >&2; return 1; }
+  [ -n "$TMUX" ] || { printf 'Run inside tmux\n' >&2; return 1; }
 
-  ssh-add -l >/dev/null 2>&1
-  if [ "$?" -eq 2 ]; then
-    eval "$(ssh-agent -s)"
+  local -r branch="$1" agent="${2:-claude}"
+
+  [ -n "$branch" ] ||
+    { printf 'usage: wt <branch> [agent-cmd]\n' >&2; return 1; }
+
+  local gitdir toplevel wtdir
+
+  gitdir="$(git rev-parse --path-format=absolute --git-common-dir)" || return
+  readonly gitdir
+
+  toplevel="$(dirname "$gitdir")"
+  readonly toplevel
+
+  wtdir="$toplevel/../$(basename "$toplevel")-${branch//\//-}"
+  readonly wtdir
+
+  git worktree add -b "$branch" "$wtdir" || return
+  tmux new-window -n "$branch" -c "$wtdir" "$agent" \; \
+    split-window -h -b -l 60% -c "$wtdir" 'vim .'
+}
+
+# Remove a worktree and its branch.
+# usage: wtrm <branch>
+wtrm()
+{
+  local -r branch="$1"
+
+  [ -n "$branch" ] ||
+    { printf 'usage: wtrm <branch>\n' >&2; return 1; }
+
+  local gitdir toplevel wtdir
+
+  gitdir="$(git rev-parse --path-format=absolute --git-common-dir)" || return
+  readonly gitdir
+
+  toplevel="$(dirname "$gitdir")"
+  readonly toplevel
+
+  wtdir="$toplevel/../$(basename "$toplevel")-${branch//\//-}"
+  readonly wtdir
+
+  if [ -d "$wtdir" ]; then
+    git worktree remove "$wtdir" || return
+  else
+    printf 'Folder already gone, pruning worktree records\n' >&2
+    git worktree prune
   fi
-  ssh-add "$key"
+
+  git branch -d "$branch"
 }
