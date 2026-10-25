@@ -1,0 +1,48 @@
+{
+  "$comment": "Claude Code configuration file",
+  "permissions": {
+    "defaultMode": "default",
+    "disableAutoMode": "disable",
+    "allow": [
+      "Bash(git status)",
+      "Bash(git diff *)",
+      "Bash(git log *)",
+      "Bash(make test *)"
+    ],
+    "deny": [
+      "Bash(git push *)",
+      "Read(./.env)",
+      "Read(./.env.*)",
+      "Read(./secrets/**)",
+      "mcp__*"
+    ]
+  },
+  "promptSuggestionEnabled": false,
+  "timeFormat": "24-hour",
+  "theme": "auto",
+  "editorMode": "vim",
+  "verbose": true,
+  "autoCompactEnabled": false,
+  "remoteControlAtStartup": false,
+  "crossSessionInbound": "refuse",
+  "sandbox": {
+    "enabled": true,
+    "allowUnsandboxedCommands": false,
+    "autoAllowBashIfSandboxed": false,
+    "credentials": {
+      "files": [
+        { "path": "~/.ssh", "mode": "deny" },
+        { "path": "~/.aws/credentials", "mode": "deny" }
+      ],
+      "envVars": [{ "name": "GITHUB_TOKEN", "mode": "deny" }]
+    }
+  },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [{ "type": "command", "command": "~/.claude/hooks/block-dangerous.sh" }]
+      }
+    ]
+  }
+}
