@@ -1,6 +1,4 @@
-unlet! skip_defaults_vim
 source $VIMRUNTIME/defaults.vim
-filetype plugin indent on
 runtime ftplugin/man.vim
 
 let g:netrw_banner = 0
@@ -11,16 +9,12 @@ let g:netrw_browsex_viewer = 'firefox-devedition'
 
 augroup SetIndentation
   autocmd!
-  autocmd FileType c,cpp setlocal et sw=2 sts=2 ts=8 tw=79 cc=80 cin
-  autocmd FileType python,php,java setlocal et sw=4 sts=4 ts=8 tw=79 cc=80
-  autocmd FileType sh,javascript,html,tex setlocal et sw=2 sts=2 ts=8 tw=79 cc=80
+  autocmd FileType c,cpp setlocal ts=8 cin
+  autocmd FileType python,php,java setlocal sw=4 sts=4 ts=4
 augroup END
 
 autocmd FocusGained,BufEnter * checktime
 
-set nocompatible encoding=utf-8 cursorline background=dark
-set nowrap ignorecase smartcase incsearch undofile undodir=~/.vim/undodir
-colorscheme quiet
 function! s:QuietDiffColors() abort
   hi DiffAdd    cterm=NONE ctermfg=15 ctermbg=NONE
   hi DiffDelete cterm=NONE ctermfg=8 ctermbg=NONE
@@ -30,8 +24,10 @@ endfunction
 autocmd ColorScheme * call s:QuietDiffColors()
 call s:QuietDiffColors()
 
-set diffopt+=algorithm:histogram,indent-heuristic
+set ar cul nowrap bg=dark ic scs udf udir=~/.vim/undodir et sw=2 sts=2
+set ts=2 tw=79 cc=80 diffopt+=algorithm:histogram,indent-heuristic
 try
   set diffopt+=inline:word
 catch
 endtry
+colo quiet
