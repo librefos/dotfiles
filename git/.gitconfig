@@ -12,3 +12,15 @@
 	assume8bitEncoding = UTF-8
 	confirm = always
 	annotate = yes
+[merge]
+	tool = vimdiff
+[mergetool]
+	prompt = false
+[pull]
+	rebase = true
+[rebase]
+	autoStash = true
+[difftool]
+	trustExitCode = true
+[status]
+	showUntrackedFiles = all
