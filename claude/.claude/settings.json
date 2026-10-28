@@ -1,8 +1,5 @@
 {
-  "$comment": "Claude Code configuration file",
   "permissions": {
-    "defaultMode": "default",
-    "disableAutoMode": "disable",
     "allow": [
       "Bash(git status)",
       "Bash(git diff *)",
@@ -15,34 +12,53 @@
       "Read(./.env.*)",
       "Read(./secrets/**)",
       "mcp__*"
-    ]
-  },
-  "promptSuggestionEnabled": false,
-  "timeFormat": "24-hour",
-  "theme": "auto",
-  "editorMode": "vim",
-  "verbose": true,
-  "autoCompactEnabled": false,
-  "remoteControlAtStartup": false,
-  "crossSessionInbound": "refuse",
-  "sandbox": {
-    "enabled": true,
-    "allowUnsandboxedCommands": false,
-    "autoAllowBashIfSandboxed": false,
-    "credentials": {
-      "files": [
-        { "path": "~/.ssh", "mode": "deny" },
-        { "path": "~/.aws/credentials", "mode": "deny" }
-      ],
-      "envVars": [{ "name": "GITHUB_TOKEN", "mode": "deny" }]
-    }
+    ],
+    "defaultMode": "default",
+    "disableAutoMode": "disable"
   },
   "hooks": {
     "PreToolUse": [
       {
         "matcher": "Bash",
-        "hooks": [{ "type": "command", "command": "~/.claude/hooks/block-dangerous.sh" }]
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.claude/hooks/block-dangerous.sh"
+          }
+        ]
       }
     ]
-  }
+  },
+  "sandbox": {
+    "enabled": true,
+    "autoAllowBashIfSandboxed": false,
+    "allowUnsandboxedCommands": false,
+    "credentials": {
+      "files": [
+        {
+          "path": "~/.ssh",
+          "mode": "deny"
+        },
+        {
+          "path": "~/.aws/credentials",
+          "mode": "deny"
+        }
+      ],
+      "envVars": [
+        {
+          "name": "GITHUB_TOKEN",
+          "mode": "deny"
+        }
+      ]
+    }
+  },
+  "promptSuggestionEnabled": false,
+  "timeFormat": "24-hour",
+  "theme": "dark-ansi",
+  "editorMode": "vim",
+  "verbose": true,
+  "autoCompactEnabled": false,
+  "remoteControlAtStartup": false,
+  "crossSessionInbound": "refuse",
+  "$comment": "Claude Code configuration file"
 }
