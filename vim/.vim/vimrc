@@ -1,21 +1,25 @@
-source $VIMRUNTIME/defaults.vim
-runtime ftplugin/man.vim
+set nocompatible
 
-let g:netrw_banner = 0
-let g:netrw_liststyle = 3
-let g:netrw_browse_split = 4
-let g:netrw_list_hide = '.*\.swp$'
+filetype plugin on
+runtime! ftplugin/man.vim
+
+syntax enable
+
+packadd netrw
+set path+=**
+set wildmenu
+
+let g:netrw_banner=0
+let g:netrw_browse_split=4
+let g:netrw_altv=1
+let g:netrw_liststyle=3
+let g:netrw_list_hide = netrw_gitignore#Hide() .. '.*\.swp$'
+let g:netrw_list_hide .= ',\(^\|\s\s\)\zs\.\S\+'
 let g:netrw_browsex_viewer = 'firefox-devedition'
 
-augroup SetIndentation
-  autocmd!
-  autocmd FileType c,cpp setlocal ts=8 cin
-  autocmd FileType python,php,java setlocal sw=4 sts=4 ts=4
-augroup END
+set undofile undodir=~/.vim/undodir
 
-autocmd FocusGained,BufEnter * checktime
+set cursorline nowrap background=dark colorcolumn=73
+set expandtab textwidth=72 shiftwidth=4 tabstop=8 softtabstop=4 smarttab
 
-set ar cul nowrap bg=dark ic scs udf udir=~/.vim/undodir et sw=2 sts=2
-set ts=2 tw=79 cc=80 diffopt+=algorithm:histogram,indent-heuristic
-set dip+=inline:word
-colo quiet
+colorscheme quiet
