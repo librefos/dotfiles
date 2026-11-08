@@ -15,7 +15,7 @@ let g:netrw_altv=1
 let g:netrw_liststyle=3
 let g:netrw_list_hide = netrw_gitignore#Hide() .. '.*\.swp$'
 let g:netrw_list_hide .= ',\(^\|\s\s\)\zs\.\S\+'
-let g:netrw_browsex_viewer = 'firefox-devedition'
+let g:netrw_browsex_viewer = 'firefox-developer-edition'
 
 set undofile undodir=~/.vim/undodir
 
